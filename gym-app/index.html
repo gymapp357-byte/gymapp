@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GymApp Pro</title>
+  <link rel="manifest" href="manifest.json">
+  <meta name="theme-color" content="#0B0F19">
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <div class="phone-frame">
+    
+    <!-- Header Superior Estilizado -->
+    <header class="app-header">
+      <div class="user-pill">
+        <div class="avatar-sm">JP</div>
+        <div>
+          <span class="user-name">Juan Pérez</span>
+          <span class="membership-status">Socio Activo</span>
+        </div>
+      </div>
+      <div class="aforo-chip">
+        <span class="pulse-dot"></span>
+        <span id="aforo-text">Aforo 42%</span>
+      </div>
+    </header>
+
+    <!-- Banner de Deuda / Tolerancia -->
+    <div id="cuota-banner" class="cuota-banner hidden">
+      ⚠️ Tu cuota venció. Tienes 3 días de tolerancia para regularizar.
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL (CAMBIA SEGÚN LA PESTAÑA) -->
+    <main class="main-content">
+
+      <!-- PESTAÑA 1: INICIO -->
+      <section id="tab-inicio" class="tab-page hidden">
+        <div class="welcome-card">
+          <h2>🔥 ¡Racha de 4 días!</h2>
+          <p>Tu cuerpo se recupera a buen ritmo. Hoy toca entrenamiento de fuerza superior.</p>
+          <button class="btn-action-sm" onclick="switchTab('rutina')">Ir a entrenar →</button>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-card">
+            <span class="stat-icon">⚡</span>
+            <span class="stat-val">85%</span>
+            <span class="stat-lbl">Recuperación</span>
+          </div>
+          <div class="stat-card">
+            <span class="stat-icon">🏋️</span>
+            <span class="stat-val">12</span>
+            <span class="stat-lbl">Sesiones/mes</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- PESTAÑA 2: RUTINA (Activa al inicio) -->
+      <section id="tab-rutina" class="tab-page active">
+        <div class="workout-card">
+          <div class="card-header">
+            <span class="badge-tag">Pecho & Tríceps</span>
+            <span class="set-counter">Serie 2 de 4</span>
+          </div>
+
+          <h2 class="exercise-title">Press de Banca Inclinado</h2>
+
+          <div class="video-preview">
+            <div class="play-btn">▶</div>
+            <span>Ver técnica de ejecución</span>
+          </div>
+
+          <div class="target-grid">
+            <div class="target-box">
+              <span class="lbl">Objetivo</span>
+              <span class="val">10 - 12 reps</span>
+            </div>
+            <div class="target-box">
+              <span class="lbl">Peso Sugerido</span>
+              <span class="val highlight">60 kg</span>
+            </div>
+          </div>
+
+          <button id="btn-complete-set" class="btn-primary">
+            ✓ SERIE COMPLETADA
+          </button>
+        </div>
+      </section>
+
+      <!-- PESTAÑA 3: NUTRICIÓN -->
+      <section id="tab-nutricion" class="tab-page hidden">
+        <div class="nutrition-card">
+          <h2>🥗 Plan Nutricional</h2>
+          <p class="subtitle">Objetivo: Volumen Limpio (2,400 kcal)</p>
+          
+          <div class="macro-bar">
+            <div class="macro protein" style="width: 40%">Prot</div>
+            <div class="macro carbs" style="width: 45%">Carb</div>
+            <div class="macro fats" style="width: 15%">Grasa</div>
+          </div>
+
+          <div class="meal-list">
+            <div class="meal-card">
+              <span class="meal-time">Desayuno</span>
+              <p>Omelette 3 huevos + Avena con banana</p>
+            </div>
+            <div class="meal-card">
+              <span class="meal-time">Almuerzo</span>
+              <p>Pechuga de pollo 200g + Arroz integral</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PESTAÑA 4: PERFIL -->
+      <section id="tab-perfil" class="tab-page hidden">
+        <div class="profile-card">
+          <div class="avatar-lg">JP</div>
+          <h2>Juan Pérez</h2>
+          <p class="profile-sub">Gimnasio Central • Plan VIP</p>
+
+          <div class="info-list">
+            <div class="info-item">
+              <span>Estado de Cuota</span>
+              <span class="text-success">Al día (Vence en 15 días)</span>
+            </div>
+            <div class="info-item">
+              <span>Ubicación Gimnasio</span>
+              <span>San Miguel de Tucumán</span>
+            </div>
+          </div>
+
+          <button class="btn-secondary">Editar Datos Personales</button>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- Modal del Temporizador -->
+    <div id="rest-timer-modal" class="modal-overlay hidden">
+      <div class="modal-card">
+        <h3>Descanso Recomendado</h3>
+        <div id="timer-display" class="timer-clock">01:30</div>
+        
+        <div class="preset-buttons">
+          <button onclick="startTimer(60)">1:00</button>
+          <button onclick="startTimer(90)" class="active">1:30</button>
+          <button onclick="startTimer(120)">2:00</button>
+          <button onclick="startTimer(180)">3:00</button>
+        </div>
+
+        <button id="btn-skip-timer" class="btn-secondary">Omitir y Continuar</button>
+      </div>
+    </div>
+
+    <!-- Barra de Navegación Inferior Funcional -->
+    <nav class="bottom-nav">
+      <button class="nav-btn" onclick="switchTab('inicio')" id="nav-inicio">
+        <span class="nav-icon">🏠</span>
+        <span class="nav-label">Inicio</span>
+      </button>
+      <button class="nav-btn active" onclick="switchTab('rutina')" id="nav-rutina">
+        <span class="nav-icon">🏋️</span>
+        <span class="nav-label">Rutina</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab('nutricion')" id="nav-nutricion">
+        <span class="nav-icon">🥗</span>
+        <span class="nav-label">Nutrición</span>
+      </button>
+      <button class="nav-btn" onclick="switchTab('perfil')" id="nav-perfil">
+        <span class="nav-icon">👤</span>
+        <span class="nav-label">Perfil</span>
+      </button>
+    </nav>
+
+  </div>
+
+  <script src="js/app.js"></script>
+  <script src="js/timer.js"></script>
+</body>
+</html>
